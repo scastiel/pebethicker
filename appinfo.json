@@ -1,9 +1,9 @@
 {
     "appKeys": {},
     "capabilities": [
-        ""
+        "configurable"
     ],
-    "companyName": "sebastien@castiel.me",
+    "companyName": "Sebastien Castiel",
     "longName": "PebEthicker",
     "projectType": "pebblejs",
     "resources": {

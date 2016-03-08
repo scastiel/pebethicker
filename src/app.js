@@ -5,6 +5,7 @@
  */
 
 var UI = require('ui');
+var Settings = require('settings');
 var ajax = require('ajax');
 
 var items = [];
@@ -17,11 +18,17 @@ var menu = new UI.Menu({
 menu.on('select', refresh);
 menu.show();
 
-var tickersToShow = ['ETHBTC', 'ETHEUR'];
-
 refresh();
 
+var tickersToShow;
+
 function refresh() {
+  tickersToShow = Settings.option('tickers');
+  if (!tickersToShow || tickersToShow.length === 0) {
+    tickersToShow = ['ETHBTC', 'ETHEUR'];
+    Settings.option('tickers', tickersToShow);
+  }
+  
   section.title = 'Loading...';
   menu.section(0, section);
   ajax({ url: 'https://www.gatecoin.com/api/Public/LiveTickers', type: 'json' },
@@ -47,3 +54,11 @@ function refresh() {
         menu.section(0, section);
       });
 }
+
+Settings.config(
+  { url: 'http://scastiel.me/pebethicker/settings/' },
+  function(e) {
+    console.log("Options", e.options);
+    tickersToShow = e.options.tickers;
+  }
+);
