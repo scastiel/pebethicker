@@ -27,12 +27,15 @@
 		</div>
 	</form>
 	<p class="text-muted"><strong>Pebethicker</strong> uses <a href="http://www.gatecoin.com/">Gatecoin</a> public API.</p>
+	<small class="text-muted">URL: <span id="url"></span></small>
 </div>
 
 <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <script>
+$('#url').text(location.href);
+
 var availableTickers = ['BTCEUR', 'BTCHKD', 'BTCUSD', 'ETHBTC', 'ETHEUR', 'REPBTC'];
 availableTickers.forEach(function(ticker) {
 	var $tickerElement = $('.ticker-template').clone();
