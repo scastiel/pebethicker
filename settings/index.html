@@ -8,7 +8,7 @@
 
 <div class="container">
 	<div class="page-header">
-		<h1>Pebethicker</h1>
+		<h1>PebEthicker</h1>
 	</div>
 	<form>
 		<div class="form-group">
@@ -26,14 +26,21 @@
 			<button class="btn btn-primary" onclick="save(); event.preventDefault();">Save</button>
 		</div>
 	</form>
-	<p class="text-muted"><strong>Pebethicker</strong> uses <a href="http://www.gatecoin.com/">Gatecoin</a> public API.</p>
-	<small class="text-muted">URL: <span id="url"></span></small>
+	<p class="text-muted"><strong>PebEthicker</strong> uses <a href="http://www.gatecoin.com/">Gatecoin</a> public API.</p>
 </div>
 
 <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <script>
+
+var selectedTickers;
+try {
+	selectedTickers = JSON.parse(decodeURIComponent(location.hash.substring(1))).tickers;
+} catch (e) {
+	selectedTickers = [];
+}
+
 $('#url').text(location.href);
 
 var availableTickers = ['BTCEUR', 'BTCHKD', 'BTCUSD', 'ETHBTC', 'ETHEUR', 'REPBTC'];
@@ -41,6 +48,9 @@ availableTickers.forEach(function(ticker) {
 	var $tickerElement = $('.ticker-template').clone();
 	$tickerElement.find('.ticker-name').text(ticker);
 	$tickerElement.find('.ticker-checkbox').val(ticker);
+	if (selectedTickers.indexOf(ticker) !== -1) {
+		$tickerElement.find('.ticker-checkbox').attr('checked', 'checked')
+	}
 	$tickerElement.removeClass('ticker-template');
 	$tickerElement.appendTo($('.ticker-template').parent());
 });
