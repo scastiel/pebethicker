@@ -43,7 +43,7 @@ try {
 
 $('#url').text(location.href);
 
-var availableTickers = ['BTCEUR', 'BTCHKD', 'BTCUSD', 'ETHBTC', 'ETHEUR', 'REPBTC'];
+var availableTickers = ['BTCEUR', 'BTCHKD', 'BTCUSD', 'ETHBTC', 'ETHEUR', 'ETHUSD', 'REPBTC'];
 availableTickers.forEach(function(ticker) {
 	var $tickerElement = $('.ticker-template').clone();
 	$tickerElement.find('.ticker-name').text(ticker);
