@@ -31,7 +31,7 @@
             {
                 "file": "images/pebethicker-28x28.png",
                 "menuIcon": true,
-                "name": "IMAGES_PEBETHICKER_28X28",
+                "name": "IMAGES_PEBETHICKER_28X28_PNG",
                 "type": "png"
             }
         ]
@@ -43,7 +43,7 @@
         "basalt"
     ],
     "uuid": "4259b4c2-2cd9-49fe-8cf6-47581761fce3",
-    "versionCode": 2,
+    "versionCode": 1,
     "versionLabel": "1.1",
     "watchapp": {
         "hiddenApp": false,
