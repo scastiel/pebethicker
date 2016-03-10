@@ -33,19 +33,28 @@ function refresh() {
   menu.section(0, section);
   ajax({ url: 'https://www.gatecoin.com/api/Public/LiveTickers', type: 'json' },
       function(data, status, request) {
+        var tickers = {};
+        data.tickers.forEach(function(ticker) {
+          tickers[ticker.currencyPair] = ticker;
+        });
         section.title = 'Press select to refresh';
         items.length = 0;
-        data.tickers.forEach(function(ticker) {
-          tickersToShow.forEach(function(tickerToShow) {
-    				if (ticker.currencyPair === tickerToShow) {
-    					var last = ticker.last;
-    					var fromCurrency = tickerToShow.slice(0, 3);
-    					var toCurrency = tickerToShow.slice(3);
-    					var formattedLast = Math.round(last*10000)/10000;
-              var string = '1 ' + fromCurrency + ' = ' + formattedLast + ' ' + toCurrency;
-              items.push({ title: tickerToShow, subtitle: string });
-    				}
-    			});
+        tickersToShow.forEach(function(tickerToShow) {
+          var ticker = tickers[tickerToShow];
+          var last;
+          if (ticker) {
+            last = ticker.last;
+          } else if (tickerToShow === 'ETHUSD') {
+            last = tickers.ETHBTC.last * tickers.BTCUSD.last;
+          }
+          
+          if (last) {
+            var fromCurrency = tickerToShow.slice(0, 3);
+            var toCurrency = tickerToShow.slice(3);
+            var formattedLast = Math.round(last*10000)/10000;
+            var string = '1 ' + fromCurrency + ' = ' + formattedLast + ' ' + toCurrency;
+            items.push({ title: tickerToShow, subtitle: string });
+          }
         });
         menu.section(0, section);
       },
